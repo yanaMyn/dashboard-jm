@@ -18,10 +18,10 @@
                 <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i><span>User</span></a>
                 <ul class="dropdown-menu">
                     <li class='{{ Request::is('user/list') ? 'active' : '' }}'>
-                        <a class="nav-link" href="{{ route('list-user') }}">List User</a>
+                        <a class="nav-link" href="{{ route('list.user') }}">List User</a>
                     </li>
                     <li class="{{ Request::is('user/add') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('add-user') }}">Add User</a>
+                        <a class="nav-link" href="{{ route('add.user') }}">Add User</a>
                     </li>
                 </ul>
             </li>

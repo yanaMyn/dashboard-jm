@@ -20,22 +20,32 @@
             </div>
             <div class="section-body">
                 <div class="card">
-                    <form class="needs-validation" novalidate="">
+                    <form method="POST" action="{{ route('save.user') }}">
+                        @csrf
                         <div class="card-header">
                             <h4>Input User Data</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Nama</label>
-                                <input type="text" class="form-control" required="">
-                                <div class="invalid-feedback">
-                                    Isi dengan nama jamaah
-                                </div>
+                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                @error('name')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control selectric" name="gender">
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <select class="form-control selectric">
-                                    <option>-</option>
+                                <select class="form-control selectric" name="status">
                                     <option>Belum Nikah</option>
                                     <option>Menikah</option>
                                     <option>Duda</option>
@@ -43,28 +53,39 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Generus</label>
+                                <select class="form-control selectric" name="generus">
+                                    <option>Dewasa</option>
+                                    <option>Muda-Mudi</option>
+                                    <option>Praremaja</option>
+                                    <option>Caberawit</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Alamat</label>
-                                <input type="email" class="form-control" required="">
-                                <div class="invalid-feedback">
-                                    Isikan alamat
-                                </div>
+                                <input type="text" class="form-control" name="address" value="{{ old('address') }}">
+                                @error('address')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Nomer Telp</label>
-                                <input type="email" class="form-control">
-                                <div class="valid-feedback">
-                                    Good job!
-                                </div>
+                                <input type="number" class="form-control" name="phone_number"
+                                    value="{{ old('phone_number') }}">
+                                @error('phone_number')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group mb-0">
-                                <label>Catatan</label>
-                                <textarea class="form-control" data-height="150" required=""></textarea>
-                                <div class="invalid-feedback">
-                                    catatan jamaah jika ada
-                                </div>
+                                <label>Catatan Tentang Jamaah</label>
+                                <textarea class="form-control" data-height="150" name="note">{{ old('note') }}</textarea>
                             </div>
                         </div>
-                        <div class="card-footer text-right">
+                        <div class="card-footer text-left">
                             <button class="btn btn-primary">Submit</button>
                         </div>
                     </form>
