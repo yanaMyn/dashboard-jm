@@ -27,3 +27,9 @@ Route::post('/user/save', [UserController::class, 'save'])
 
 Route::delete('/user/delete/{id}', [UserController::class, 'delete'])
     ->name('delete.user');
+
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])
+    ->name('edit.user');
+
+Route::patch('/user/{id}', [UserController::class, 'update'])
+    ->name('update.user');

@@ -13,15 +13,12 @@
                     </i> <span>Dashboard</span></a>
             </li>
 
-            <li class="menu-header">User</li>
+            <li class="menu-header">Jamaah</li>
             <li class="nav-item dropdown {{ $type_menu === 'user' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i><span>User</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i><span>Jamaah</span></a>
                 <ul class="dropdown-menu">
                     <li class='{{ Request::is('user/list') ? 'active' : '' }}'>
-                        <a class="nav-link" href="{{ route('list.user') }}">List User</a>
-                    </li>
-                    <li class="{{ Request::is('user/add') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('add.user') }}">Add User</a>
+                        <a class="nav-link" href="{{ route('list.user') }}">List Jamaah</a>
                     </li>
                 </ul>
             </li>

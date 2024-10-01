@@ -17,8 +17,14 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>List User</h1>
+                <h1>List Jamaah</h1>
             </div>
+            <div>
+                <a href="{{ route('add.user') }}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i>
+                    Tambah Data</a>
+            </div>
+            <div class="col-xs-6" style="height:15px;"></div>
+
             @if (session('success'))
                 <div class="alert alert-success alert-has-icon">
                     <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
@@ -34,6 +40,15 @@
                     <div class="alert-body">
                         <div class="alert-title">Success</div>
                         {{ session('success_delete') }}
+                    </div>
+                </div>
+            @endif
+            @if (session('success_update'))
+                <div class="alert alert-success alert-has-icon">
+                    <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                    <div class="alert-body">
+                        <div class="alert-title">Success</div>
+                        {{ session('success_update') }}
                     </div>
                 </div>
             @endif
@@ -59,7 +74,8 @@
                                         <td>{{ $jm->address }}</td>
                                         <td>
                                             <a class="btn btn-info btn-action mr-1">Lihat</a>
-                                            <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
+                                            <a href="{{ route('edit.user', $jm->id) }}"
+                                                class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                 title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                             <a href="#" data-id="{{ $jm->id }}"
                                                 class="btn btn-danger btn-action fas fa-trash swal-confim">

@@ -23,20 +23,7 @@ class UserController extends Controller
     //save
     public function save(Request $request)
     {
-
-        $validation = $request->validate(
-            [
-                'name' => 'required|max:45|min:3',
-                'phone_number' => 'nullable|numeric|digits_between:10,15',
-            ],
-            [
-                'name.required' => 'Nama harus diisi',
-                'name.max' => 'Maksimal 45 karakter',
-                'name.min' => 'Minimal 3 karakter',
-                'phone_number.numeric' => 'Harus angka',
-                'phone_number.digits_between' => 'Panjang minimal 10 dan maksimal 15',
-            ]
-        );
+        $this->_validate($request);
 
         $name = $request->name;
         $status = $request->status;
@@ -68,5 +55,49 @@ class UserController extends Controller
         DB::table('jamaah')->where('id', $id)->delete();
 
         return redirect()->back()->with('success_delete', 'Data berhasil dihapus');
+    }
+
+    //edit user
+    public function edit($id)
+    {
+        $user = DB::table('jamaah')->where('id', $id)->first();
+        return view('pages.edit-user', ['user' => $user, 'type_menu' => 'user']);
+    }
+
+    //update
+    public function update(Request $request, $id)
+    {
+        $this->_validate($request);
+        $user = DB::table('jamaah')->where('id', $id)->update([
+            'name' => $request->name,
+            'status' => $request->status,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'note' => $request->note,
+            'gender' => $request->gender,
+            'generus' => $request->generus,
+        ]);
+        return redirect()->route('list.user')->with('success_update', 'Data Berhasil di update');
+    }
+
+    private function _validate(Request $request)
+    {
+        $validation = $request->validate(
+            [
+                'name' => 'required|max:45|min:3',
+                'address' => 'required|max:100|min:5',
+                'phone_number' => 'nullable|numeric|digits_between:10,15',
+            ],
+            [
+                'name.required' => 'Nama harus diisi',
+                'name.max' => 'Maksimal 45 karakter',
+                'name.min' => 'Minimal 3 karakter',
+                'phone_number.numeric' => 'Harus angka',
+                'phone_number.digits_between' => 'Panjang minimal 10 dan maksimal 15',
+                'address.required' => 'Alamat harus diisi',
+                'address.max' => 'Maksimal 100 karakter',
+                'address.min' => 'Minimal 5 karakter',
+            ]
+        );
     }
 }

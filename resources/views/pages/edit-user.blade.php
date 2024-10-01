@@ -16,14 +16,15 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Data</h1>
+                <h1>Edit</h1>
             </div>
             <div class="section-body">
                 <div class="card">
-                    <form method="POST" action="{{ route('save.user') }}">
+                    <form method="POST" action="{{ route('update.user', $user->id) }}">
                         @csrf
+                        @method('patch')
                         <div class="card-header">
-                            <h4>Input Data Jamaah</h4>
+                            <h4>Edit Data Jamaah</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -31,7 +32,9 @@
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="text" class="form-control" name="name"
-                                            value="{{ old('name') }}">
+                                            @if (old('name')) value="{{ old('name') }}"
+                                            @else
+                                                value="{{ $user->name }}" @endif>
                                         @error('name')
                                             <div class="text-danger">
                                                 {{ $message }}
@@ -44,8 +47,8 @@
                                     <div class="form-group">
                                         <label>Jenis Kelamin</label>
                                         <select class="form-control selectric" name="gender">
-                                            <option>Laki-Laki</option>
-                                            <option>Perempuan</option>
+                                            <option @if ($user->gender == 'Laki-laki') selected @endif>Laki-Laki</option>
+                                            <option @if ($user->gender == 'Perempuan') selected @endif>Perempuan</option>
                                         </select>
                                     </div>
                                 </div>
@@ -53,7 +56,9 @@
                                     <div class="form-group">
                                         <label>Nomer Telp</label>
                                         <input type="number" class="form-control" name="phone_number"
-                                            value="{{ old('phone_number') }}">
+                                            @if (old('phone_number')) value="{{ old('phone_number') }}"
+                                            @else
+                                                value="{{ $user->phone_number }}" @endif>
                                         @error('phone_number')
                                             <div class="text-danger">
                                                 {{ $message }}
@@ -65,11 +70,11 @@
                                     <div class="form-group">
                                         <label>Generus</label>
                                         <select class="form-control selectric" name="generus">
-                                            <option>Dewasa</option>
-                                            <option>Senior</option>
-                                            <option>Muda-Mudi</option>
-                                            <option>Praremaja</option>
-                                            <option>Caberawit</option>
+                                            <option @if ($user->generus == 'Dewasa') selected @endif>Dewasa</option>
+                                            <option @if ($user->generus == 'Senior') selected @endif>Senior</option>
+                                            <option @if ($user->generus == 'Muda-Mudi') selected @endif>Muda-Mudi</option>
+                                            <option @if ($user->generus == 'Praremaja') selected @endif>Praremaja</option>
+                                            <option @if ($user->generus == 'Caberawit') selected @endif>Caberawit</option>
                                         </select>
                                     </div>
                                 </div>
@@ -77,7 +82,9 @@
                                     <div class="form-group">
                                         <label>Alamat</label>
                                         <input type="text" class="form-control" name="address"
-                                            value="{{ old('address') }}">
+                                            @if (old('address')) value="{{ old('address') }}"
+                                        @else
+                                            value="{{ $user->address }}" @endif>
                                         @error('address')
                                             <div class="text-danger">
                                                 {{ $message }}
@@ -89,17 +96,17 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select class="form-control selectric" name="status">
-                                            <option>Belum Nikah</option>
-                                            <option>Menikah</option>
-                                            <option>Duda</option>
-                                            <option>Janda</option>
+                                            <option @if ($user->status == 'Belum Nikah') selected @endif>Belum Nikah</option>
+                                            <option @if ($user->status == 'Menikah') selected @endif>Menikah</option>
+                                            <option @if ($user->status == 'Duda') selected @endif>Duda</option>
+                                            <option @if ($user->status == 'Janda') selected @endif>Janda</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group mb-0">
                                         <label>Catatan Tentang Jamaah</label>
-                                        <textarea class="form-control" data-height="150" name="note">{{ old('note') }}</textarea>
+                                        <textarea class="form-control" data-height="150" name="note">{{ $user->note }}</textarea>
                                     </div>
                                 </div>
                             </div>
