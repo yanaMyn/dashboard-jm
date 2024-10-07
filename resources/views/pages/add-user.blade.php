@@ -52,7 +52,7 @@
                                 <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label>Nomer Telp</label>
-                                        <input type="number" class="form-control" name="phone_number"
+                                        <input type="text" class="form-control" name="phone_number"
                                             value="{{ old('phone_number') }}">
                                         @error('phone_number')
                                             <div class="text-danger">
