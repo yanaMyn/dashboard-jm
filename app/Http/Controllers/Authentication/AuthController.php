@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -18,13 +19,17 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            // The user is being remembered...
+            $request->session()->regenerate();
 
-        $data = User::where('email', $request->email)->first();
-        if ($data) {
-            if (Hash::check($request->password, $data->password)) {
-                session(['logged_in' => true]);
-                return redirect()->route('dashboard');
+            if ($request->email == 'abdul@gmail.com') {
+                session(['admin' => true]);
+            } else {
+                session(['admin' => false]);
             }
+
+            return redirect()->intended('dashboard');
         }
 
         return redirect()->route('login.index')->with('failed_login', 'Email atau password salah.');
@@ -33,7 +38,12 @@ class AuthController extends Controller
     //logout
     public function logout(Request $request)
     {
-        $request->session()->flush();
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
         return redirect()->route('login.index');
     }
 }

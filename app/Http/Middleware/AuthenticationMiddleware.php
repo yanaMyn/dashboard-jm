@@ -15,8 +15,8 @@ class AuthenticationMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session('logged_in')) {
-            return redirect('/');
+        if (!session('admin')) {
+            return redirect('dashboard');
         }
         return $next($request);
     }
